@@ -10,12 +10,15 @@ namespace Business.Abstarct
     public interface ICarService
     {
         List<Car>GetAll();
-        Car GetById(int id);
+        
         void Add(Car car);
         void Update(Car car);
         void Delete(Car car);
-        List<Car> GetAllByCategory(int CategoryId);
-        List<Car> GetAllByColor(int ColorId);
+
+        List<Car>GetCarsByBrandId(int BrandId);
+        List<Car> GetCarsByColorId(int ColorId);
+        Car GetByCarId(int id);
+
 
     }
 }

@@ -4,6 +4,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        ICarDal _carDal;
+        private readonly ICarDal _carDal;
 
         public CarManager(ICarDal carDal)
         {
@@ -20,7 +21,16 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            _carDal.Add(car);
+            if (car.DailyPrice > 0 &&car.Description.Length>=2)
+            {
+                _carDal.Add(car);
+            }
+            else
+            {
+                throw new Exception("Araba günlük fiyatı 0'dan büyük olmalıdır.");
+            
+            }
+
         }
 
         public void Delete(Car car)
@@ -33,25 +43,24 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
-        public List<Car> GetAllByCategory(int CategoryId)
+        public Car GetByCarId(int id)
         {
-           return _carDal.GetAllByCategory(CategoryId);
+            return _carDal.Get(c=>c.Id==id);
         }
 
-        public List<Car> GetAllByColor(int ColorId)
+        public List<Car> GetCarsByBrandId(int BrandId)
         {
-            return _carDal.GetAllByColor(ColorId);
+            return _carDal.GetAll(c=>c.BrandId==BrandId);
         }
 
-        public Car GetById(int id)
+        public List<Car> GetCarsByColorId(int ColorId)
         {
-            return _carDal.GetById(id);
-
+            return _carDal.GetAll(c=>c.ColorId==ColorId);
         }
 
         public void Update(Car car)
         {
-           _carDal.Update(car);
+            _carDal.Update(car);
         }
     }
 }
