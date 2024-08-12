@@ -1,5 +1,4 @@
-﻿using DataAccess.Abstract;
-using Entities.Abstract;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Concrete.EntityFramework
+namespace Core.DataAccess.EntityFramework
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
         where TEntity : class, IEntity, new()
@@ -16,11 +15,11 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public void Add(TEntity entity)
         {
-            using (TContext context = new TContext())
+            using (TContext context=new TContext())
             {
-                var addedEntity = context.Entry(entity);//bu referansı yakalmak için yapılır ve bu referansı yakaladığımızda ekleme güncelleme silme işlemlerini yapabiliriz
+                var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
-                context.SaveChanges();//ekleme işlemi yapılır
+                context.SaveChanges();
             }
         }
 
@@ -28,9 +27,9 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                var deletedEntity = context.Entry(entity);//bu referansı yakalmak için yapılır ve bu referansı yakaladığımızda ekleme güncelleme silme işlemlerini yapabiliriz
+                var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();//ekleme işlemi yapılır
+                context.SaveChanges();
             }
         }
 
@@ -46,7 +45,10 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                return context.Set<TEntity>().Where(filter).ToList();
+                return filter==null
+                    ? context.Set<TEntity>().ToList() 
+                    :context.Set<TEntity>().Where(filter).ToList();
+
             }
         }
 
@@ -54,9 +56,9 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                var updatedEntity = context.Entry(entity);//bu referansı yakalmak için yapılır ve bu referansı yakaladığımızda ekleme güncelleme silme işlemlerini yapabiliriz
+                var updatedEntity=context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();//ekleme işlemi yapılır
+                context.SaveChanges();
             }
         }
     }
