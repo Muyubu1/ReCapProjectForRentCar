@@ -1,4 +1,4 @@
-﻿using Business.Abstarct;
+﻿using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
