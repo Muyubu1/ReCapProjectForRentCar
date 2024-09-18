@@ -24,7 +24,7 @@ namespace Business.ValidationRules.FluentValidation
 
             // BrandId ve ColorId alanları boş olamaz.
             RuleFor(c => c.BrandId).NotEmpty();
-            RuleFor(c => c.ColorId).NotEmpty();
+            RuleFor(c => c.ColourId).NotEmpty();
         }
     }
 }

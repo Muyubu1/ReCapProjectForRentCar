@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -11,6 +12,7 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -33,6 +35,11 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
 
+
+
+
+            
+
         }
 
         public IResult Delete(Car car)
@@ -51,7 +58,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour==22 || DateTime.Now.Hour == 23)
+            if (DateTime.Now.Hour==28 || DateTime.Now.Hour == 29)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -60,7 +67,7 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetByCarId(int id)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id));
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id));
                 
                 //_carDal.Get(c => c.Id == id);
         }
@@ -79,7 +86,7 @@ namespace Business.Concrete
 
         public IDataResult< List<Car>> GetCarsByColorId(int ColorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == ColorId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColourId == ColorId));
         }
 
         public IResult Update(Car car)

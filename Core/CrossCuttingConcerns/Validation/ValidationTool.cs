@@ -9,6 +9,7 @@ namespace Core.CrossCuttingConcerns.Validation
 {
     public static class ValidationTool
     {
+        //burada büyük bir hata yazılmıştı düzelttim result.IsValid yerine result==null gibi bir ifade vardı
         public static void Validate(IValidator validator, object entity)
         {
 
@@ -16,9 +17,9 @@ namespace Core.CrossCuttingConcerns.Validation
 
             var result = validator.Validate(context);
 
-            if (result != null)
+            if (!result.IsValid)
             {
-                throw new ValidationException(result.Errors);
+                    throw new ValidationException(result.Errors);
             }
         }
     }

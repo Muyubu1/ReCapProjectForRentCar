@@ -88,5 +88,8 @@ namespace Business.Constants
         public static string CarNotAvailable { get; internal set; }
         public static string CarsListed { get; internal set; }
         public static List<Car> MaintenanceTime { get; internal set; }
+        public static string Added { get; internal set; }
+        public static string DefaultError { get; internal set; }
+        public static string ColorNotAdded { get; internal set; }
     }
 }

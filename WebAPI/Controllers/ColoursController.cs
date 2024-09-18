@@ -7,10 +7,10 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ColorsController : ControllerBase
+    public class ColoursController : ControllerBase
     {
-        IColorService _colorService;
-        public ColorsController(IColorService colorService)
+        IColourService _colorService;
+        public ColoursController(IColourService colorService)
         {
             _colorService = colorService;
         }
@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
         [HttpGet("GetById")]
         public IActionResult GetById(int id)
         {
-            var result = _colorService.GetById(id);
+            var result = _colorService.GetByColorId(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(Entities.Concrete.Color color)
+        public IActionResult Add(Entities.Concrete.Colour color)
         {
             var result = _colorService.Add(color);
             if (result.Success)
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(Color color)
+        public IActionResult Update(Colour color)
         {
             var result = _colorService.Update(color);
             if (result.Success)
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(Color color)
+        public IActionResult Delete(Colour color)
         {
             var result = _colorService.Delete(color);
             if (result.Success)

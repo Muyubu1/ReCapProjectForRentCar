@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DataAccess.Concrete.EntityFramework
 {
     //aynı anda hem interface hemde base class kullanacağız buda kodu daha kompak bir hale getirecek..
-    public class EfColorDal : EfEntityRepositoryBase<Entities.Concrete.Color, CarValueContext>, IColorDal
+    public class EfColourDal : EfEntityRepositoryBase<Entities.Concrete.Colour, CarValueContext>, IColourDal
     {
         
 

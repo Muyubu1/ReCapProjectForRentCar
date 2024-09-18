@@ -18,14 +18,15 @@ namespace WebAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory()) //===> bunu ekleyerek Autofac kullanmam?z? sa?lar
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())  // Autofac'i burada kullanýyoruz
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
-                    builder.RegisterModule(new AutofacBusinessModule());
+                    builder.RegisterModule(new AutofacBusinessModule());  // Business modüllerini burada register et
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>();  // Startup sýnýfýný kullan
                 });
     }
+
 }

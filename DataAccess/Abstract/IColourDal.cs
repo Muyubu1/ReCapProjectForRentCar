@@ -10,7 +10,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Abstract
 {
-    public interface IColorDal : IEntityRepository<Entities.Concrete.Color>
+    public interface IColourDal : IEntityRepository<Colour>
     {
 
     }

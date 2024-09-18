@@ -3,13 +3,13 @@ using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class ColorValidator : AbstractValidator<Color>
+    public class ColourValidator : AbstractValidator<Colour>
     {
-        public ColorValidator()
+        public ColourValidator()
         {
             // ColorName alanı boş olamaz ve en az 3 karakter uzunluğunda olmalı.
-            RuleFor(c => c.ColorName).NotEmpty();
-            RuleFor(c => c.ColorName).MinimumLength(3);
+            RuleFor(c => c.ColourName).NotEmpty();
+            RuleFor(c => c.ColourName).MinimumLength(1);
         }
     }
 }
