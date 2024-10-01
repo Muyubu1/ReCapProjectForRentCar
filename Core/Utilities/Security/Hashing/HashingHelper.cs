@@ -19,10 +19,13 @@ namespace Core.Utilities.Security.Hashing
         }
         public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            //doğrulam için
+            //doğrulam için password hashini
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
             {
                 var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                //kullnıcıdan gelen verilerle burada bir hash yaptık
+                //daha önce oluşan asıl hash ile örtüşmesi lazım
+
                 for (int i = 0; i < computedHash.Length; i++)
                 {
                     if (computedHash[i] != passwordHash[i])

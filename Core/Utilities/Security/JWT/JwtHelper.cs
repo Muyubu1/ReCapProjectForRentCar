@@ -20,7 +20,7 @@ namespace Core.Utilities.Security.JWT
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
-            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>(); //json formatlı dosyamızdan gelen kısım
 
         }
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
@@ -28,8 +28,11 @@ namespace Core.Utilities.Security.JWT
             _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
             var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
             var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
+            //hangi anahtarı ve hangi algoritmayı kullanacağımızı belirtiyoruz
+
             var jwt = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, operationClaims);
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+                //burada ki haddler sayesinde yazma işlemini yapıyoruz
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
             return new AccessToken
@@ -43,11 +46,13 @@ namespace Core.Utilities.Security.JWT
         public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user,
             SigningCredentials signingCredentials, List<OperationClaim> operationClaims)
         {
+            //TokenOptions, user, signingCredentials=> token imzası, operationClaims => claimler(bilgi ve yetki)
+
             var jwt = new JwtSecurityToken(
                 issuer: tokenOptions.Issuer,
                 audience: tokenOptions.Audience,
                 expires: _accessTokenExpiration,
-                notBefore: DateTime.Now,
+                notBefore: DateTime.Now,   //geçerlilik sürsi şimdiden önce olmamalı
                 claims: SetClaims(user, operationClaims),
                 signingCredentials: signingCredentials
             );
@@ -56,7 +61,7 @@ namespace Core.Utilities.Security.JWT
 
         private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
         {
-            var claims = new List<Claim>();
+            var claims = new List<Claim>(); 
             claims.AddNameIdentifier(user.UserId.ToString());
             claims.AddEmail(user.Email);
             claims.AddName($"{user.FirstName} {user.LastName}");

@@ -10,9 +10,12 @@ namespace Core.Extensions
 {
     public static class ClaimExtensions
     {
+        //ICollection<Claim> => bir claim kleksiyonu anlamına gelir
         public static void AddEmail(this ICollection<Claim> claims, string email)
         {
             claims.Add(new Claim(JwtRegisteredClaimNames.Email, email));
+            //JwtRegisteredClaimNames => standart claim isimleri vardır
+            //JwtRegisteredClaimNames.Email kullanıcının email adresini temsil eder
         }
         public static void AddName(this ICollection<Claim> claims, string name)
         {

@@ -25,6 +25,7 @@ public class Startup
 
         // TokenOptions'ı appsettings.json'dan al
         var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+        //getle beraber hangi nesneye bağlayacağımızı söylüyoruz ancak kendi web tokenımız olacak dikkat!
 
         // JWT Authentication ekle
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -59,8 +60,8 @@ public class Startup
         app.UseHttpsRedirection();
         app.UseRouting();
 
-        app.UseAuthentication(); // Authentication middleware'i ekle
-        app.UseAuthorization();  // Authorization middleware'i ekle
+        app.UseAuthentication(); // Authentication middleware'i ekle girş yap
+        app.UseAuthorization();  // Authorization middleware'i ekle yetkiye bak gibi düşünebilirisn
 
         app.UseCors("AllowOrigin"); // Cors ekle
 

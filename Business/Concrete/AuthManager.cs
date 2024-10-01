@@ -11,6 +11,8 @@ namespace Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        //auth => bir kimlik doğrulama işlemidir
+        //bunu yaperken kullanıcı ve tokenhelper kullanmamız gerekiyor
         private readonly IUserService _userService;
         private readonly ITokenHelper _tokenHelper;
 
@@ -52,6 +54,12 @@ namespace Business.Concrete
             }
 
             // Şifreyi kontrol et
+            //burada şifre ör 12345 gibi geliyor bunu binarye çeviremiz laızm
+            //hashleyip asltla beraber testini yapıyoruz
+
+            //burada salt ile hashe çevirebiliriz ancak bu işlemi bir helper sınıfı ile yapmak daha mantıklı olacaktır
+            //ve buna daha sonra tekrar iihtiyaç duyabilriiz
+
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
             {
                 return new ErrorDataResult<User>("Şifre hatalı.");
